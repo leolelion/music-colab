@@ -1,0 +1,6 @@
+fastapi==0.115.0
+pydantic==2.7.1
+uvicorn==0.31.0
+py2neo==2021.2.4  # Or neo4j driver if preferred
+strawberry-graphql==0.243.0
+musicbrainzngs==0.7.1  # For API ingestion
