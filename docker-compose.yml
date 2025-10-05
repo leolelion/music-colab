@@ -1,21 +1,31 @@
-version: '3'
+version: '3.8'
 services:
   neo4j:
     image: neo4j:latest
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "7474:7474"  # Browser UI
+      - "7687:7687"  # Bolt protocol
     volumes:
-      - ./data/neo4j:/data
+      - ./data/neo4j:/data  # Persist DB data
+      - ./data/neo4j/logs:/logs
+      - ./data/neo4j/import:/import
     environment:
-      NEO4J_AUTH: neo4j/password
+      NEO4J_AUTH: ${NEO4J_USER}/${NEO4J_PASSWORD}  # From .env
+
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     depends_on:
       - neo4j
+    environment:
+      NEO4J_BOLT_URL: ${NEO4J_BOLT_URL}
+      NEO4J_USER: ${NEO4J_USER}
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
+    depends_on:
+      - backend
