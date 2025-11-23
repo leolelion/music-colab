@@ -1,6 +1,11 @@
 fastapi==0.115.0
-pydantic==2.7.1
+pydantic==2.10.4
 uvicorn==0.31.0
 py2neo==2021.2.4  # Or neo4j driver if preferred
 strawberry-graphql==0.243.0
 musicbrainzngs==0.7.1  # For API ingestion
+python-multipart==0.0.12  # For form data
+python-dotenv==1.0.1  # For environment variables
+pytest==8.3.3  # Testing framework
+pytest-asyncio==0.24.0  # Async testing support
+httpx==0.28.1  # HTTP client for testing FastAPI
