@@ -1,0 +1,134 @@
+MUSIC COLAB: visualizing music artist collaboration
+PHASE 1
+
+1. Introduction & Goals
+Project Overview: Provide an interactive network graph, visualizing collaborations between music artists, session artists and producers.
+
+Target Users: casual fans
+
+2. Scope: 
+In Scope
+display artist connections
+search artists
+show album metadata
+filter by time period
+Out of Scope
+Music streaming
+User accounts
+
+3. System Architecture
+
+[ React + D3.js (Frontend) ]
+        |
+   GraphQL queries
+        |
+[ FastAPI Backend ]
+        |
+     Cypher queries
+        |
+[ Neo4j Graph Database ]
+
+React because of its popularity and support and my previous experience with it.
+Neo4j Graph Database due to …
+D3.js for network visualization on frontend
+
+
+
+
+
+
+
+
+
+
+4. Data Model
+
+Code: 
+“erDiagram
+    ARTIST {
+        int artist_id PK
+        string first_name
+        string last_name
+        string performance_name
+    }
+    ALBUM {
+        int album_id PK
+        string title
+        boolean is_live
+        date release_date
+    }
+    TRACK {
+        int track_id PK
+        int album_id FK
+        string title
+        int track_number
+    }
+    ALBUMARTIST {
+        int album_id FK
+        int artist_id FK
+        string role
+    }
+
+    ARTIST ||--o{ ALBUMARTIST : "participates in"
+    ALBUM ||--o{ ALBUMARTIST : "has"
+    ALBUM ||--o{ TRACK : "contains"
+”
+Entities and relationship
+ER diagram
+
+Data Source: MusicBrainz API
+
+
+5. Functional Requirements:
+Core Features:
+View network graph
+Click artist to expand to albums and close ties
+View connections between selected artists
+Visualize connection strength
+Search for an artist
+Artist / Producer / Session artist tag visible
+Show album details on click.
+Youtube link for albums
+User Flows: 
+“User searches for ‘Miles Davis’ → Graph expands to show all collaborators and common albums”
+
+6. Non Functional Requirements
+Performance: Graph queries must return in X
+Scalable to 100 artists
+Security
+Color Blind Safe
+
+7. UI Design
+Wireframes:
+Figma
+Dark Mode first
+Light Mode second
+Design Principles: Simple and Intuitive
+
+8. API Design
+Endpoints:
+GET /artist/{id} → artist details.
+GET /artist/{id}/collaborators → list of connected artists.
+GET /album/{id} → album info + participants.
+GET /band/{id}→ list of member artists.
+Data Format: JSON schema examples.
+
+9. Data Ingestion and Processing
+
+10. Testing Strategy
+
+12. Timeline and Milestones
+
+MVP (PHASE 1):
+Basic graph visualization
+Artist Search
+Artist collaboration page with albums
+Album page
+
+LATER PHASES:
+Microservice Architecture
+
+
+
+
+
