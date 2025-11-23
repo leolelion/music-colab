@@ -1,8 +1,15 @@
 import musicbrainzngs
 import time
+import os
 from collections import defaultdict
+from dotenv import load_dotenv
 
-musicbrainzngs.set_useragent("MusicColabApp", "0.1", "you@example.com")
+# Load environment variables
+load_dotenv(dotenv_path='../.env')
+
+# Set up MusicBrainz user agent with email from environment
+MUSICBRAINZ_EMAIL = os.getenv('MUSICBRAINZ_EMAIL', 'you@example.com')
+musicbrainzngs.set_useragent("MusicColabApp", "0.1", MUSICBRAINZ_EMAIL)
 
 # --- Helper: safe MusicBrainz request with retry + delay
 def safe_request(func, *args, **kwargs):
